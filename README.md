@@ -9,19 +9,13 @@ Extremely useful class for building event-driven applications. This one is based
 ### Usage
 
 	var MyClass = function() {
+		util.EventDispatcher.call(this); // inherit the EventDispatcher class
 		
-		util.EventDispatcher.call(this);
-		
+		// define public properties below the call invocation
 		this.publicVar = 42;
-		
 		var privateVar = 0;
 		
-		this.myPublicMethod = funciton() {
-			// ...
-		}
-		
-		function myPrivateMethod() {
-			// ...
-		}
+		this.myPublicMethod = funciton() { }
+		function myPrivateMethod() { }
 	};
 Note that you cannot return an object in the class closure, but instead use <this> to expose public properties.
