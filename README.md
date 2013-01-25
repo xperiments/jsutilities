@@ -38,6 +38,7 @@ Extremely useful class for building event-driven applications. This one is based
 Note that you cannot return an object in the class closure, but instead use <this> to expose public properties.
 
 Then in another class, use it as expected:
+
 	function init() {
 		var mc = new MyClass();
 		mc.addListener('load', function(evt) {
