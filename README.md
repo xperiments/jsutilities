@@ -35,7 +35,7 @@ Extremely useful class for building event-driven applications. This one is based
 			this.trigger(_privateEventObj);
 		}
 	};
-Note that you cannot return an object in the class closure, but instead use <this> to expose public properties.
+Note that you cannot return an object in the class closure, but instead use 'this' to expose public properties.
 
 Then in another class, use it as expected:
 
