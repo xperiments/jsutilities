@@ -39,7 +39,7 @@ var util = util || {};
 	 * @param [object1..N] 		An object containing additional properties to merge in. Can list any additional objects containing properties to merge in.
 	 * @returns target 		The modified target object.
 	 */
-	window.extend = function() {
+	util.extend = function() {
 		var options, name, src, copy, copyIsArray, clone,
 			target = arguments[0] || {},
 			i = 1,
@@ -83,7 +83,7 @@ var util = util || {};
 						}
 
 						// Never move original objects, clone them
-						target[ name ] = window.extend( deep, clone, copy );
+						target[ name ] = util.extend( deep, clone, copy );
 
 					// Don't bring in undefined values
 					} else if ( copy !== undefined ) {
