@@ -14,7 +14,7 @@ Tiny, efficient image loading class. No error checking yet tho. Or maybe you can
 		// yup, it's just an object, not a function, so no need to call 'new'! BONUS
 		loader.addImage('img/thing.png');
 		loader.addImage('img/otherthing.png');
-		loader.addImage('img/ok.png');
+		loader.addImage('img/coolObjectSprite.png');
 		
 		// optional
 		loader.onImageProgress = function(percent) {
@@ -27,7 +27,7 @@ Tiny, efficient image loading class. No error checking yet tho. Or maybe you can
 			
 			// once complete you can retreive your resources through loader.images which is just an object
 			// with the filename as the key and the image itself as the value
-			coolObject.init(loader.images['coolObjectSprite']);
+			coolObject.init( loader.images['coolObjectSprite'] );
 		};
 		
 		// kick it off. note that you can simply add more in later and do this again without a problem
