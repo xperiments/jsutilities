@@ -49,7 +49,14 @@ util.EventDispatcher = function() {
 		}
 		_eventList[type].push(listener);
 	};
-
+	
+	/*this.addListenerOnce = function (type, listener) {
+		if (typeof _eventList[type] === 'undefined') {
+			_eventList[type] = [];
+		}
+		_eventList[type].push(listener);
+	};*/
+	
 	/**
 	 * Removes a specific listener instance/callback.
 	 * @param {string} type 		Event tag.
