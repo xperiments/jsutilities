@@ -48,12 +48,17 @@ loader.addImage = function(url) {
  * Once images have been added to the queue, kick off the load process to download
  * each in sequence.
  */
-loader.start = function() {
+loader.startImages = function() {
 	_loaded = 0;
 	if (_total > 0) {
 		_queue.reverse(); // reversed so we can pop elements in order, which is safer/cheaper than shifting
 		processQueue();
 	}
+};
+
+loader.start = function() {
+	loader.startImages();
+	if (typeof loader.startJSON !== 'undefined') loader.startJSON();
 };
 
 /**
@@ -65,12 +70,18 @@ var processQueue = function() {
 		img = new Image(),
 		tag = nextURL.split('/');
 	
-	tag = tag[tag.length-1]; // file name
-	tag = tag.split('.')[0]; // name without extension
+	tag = tag[tag.length-1]; // get file name
+	// but without extension...
+	tag = tag.split('.');
+	tag.pop(); // remove the extension
+	tag = tag.join('.'); // bring it back together, sans extension
+	
+	// now we have a filename that can include periods
 	img.tag = tag;
 	// console.log('loading image '+img.tag);
 	
 	img.addEventListener('load', onImageComplete, false);
+	img.addEventListener('error', onImageError, false);
 	// kick off the download
 	img.src = nextURL;
 };
@@ -86,9 +97,11 @@ var onImageComplete = function(evt) {
 	this.removeEventListener('load', onImageComplete);
 	loader.images[this.tag] = this;
 	
-	if (_loaded == _total && typeof loader.onImagesLoaded === 'function') {
+	if (_loaded == _total) {
 		_total = 0; // in case there's a next time
-		loader.onImagesLoaded(loader.images);
+		if (typeof loader.onImagesLoaded === 'function') {
+			loader.onImagesLoaded(loader.images);
+		}
 	} else {
 		processQueue();
 		if (typeof loader.onImageProgress === 'function') {
@@ -97,5 +110,9 @@ var onImageComplete = function(evt) {
 			loader.onImageProgress(percentage);
 		}
 	}
+};
+
+var onImageError = function(evt) {
+	console.log(evt);
 };
 }());
